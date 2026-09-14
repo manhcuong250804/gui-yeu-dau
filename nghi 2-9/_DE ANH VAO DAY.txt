@@ -1,0 +1,13 @@
+ALBUM: Kỳ nghỉ 2/9
+Caption: "Sapa mùa lúa chín — đi đâu cũng đẹp khi có em 🏔️"
+
+Bỏ 5 ảnh vào thư mục này, đặt tên: 1.jpg, 2.jpg, ... 5.jpg
+
+Nội dung ảnh:
+- Hai đứa quàng khăn thổ cẩm, nền núi
+- Hai đứa quay lưng nhìn ra thung lũng
+- Em trên cầu treo quay lại cười
+- Em hôn má anh, nền ruộng bậc thang
+- Hai đứa đội khăn, nền cờ đỏ sao vàng
+
+Xong rồi xoá file txt này đi cũng được.

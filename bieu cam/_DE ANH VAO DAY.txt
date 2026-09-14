@@ -1,0 +1,15 @@
+ALBUM: Biểu cảm anh thích
+Caption: "phụng phịu cũng cute, nhăn nhó cũng cute 🥰"
+
+Bỏ 8 ảnh vào thư mục này, đặt tên: 1.jpg, 2.jpg, ... 8.jpg
+
+Nội dung ảnh:
+- Em đội mũ bảo hiểm mặt xị
+- Selfie nghiêng mặt phụng phịu
+- Em quấn khăn tắm mặt dỗi
+- Em ở Sapa mặt nhăn
+- Em cầm trà sữa liếc mắt
+- Cận mặt em nằm nghiêng
+- Em cầm hoa bên hồ mặt phụng phịu
+
+Xong rồi xoá file txt này đi cũng được.

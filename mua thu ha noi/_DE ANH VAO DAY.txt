@@ -1,0 +1,18 @@
+ALBUM: Mùa thu Hà Nội
+Caption: "thu này có em, thu nào cũng đẹp 🍂"
+
+Bỏ 12 ảnh vào thư mục này, đặt tên: 1.jpg, 2.jpg, ... 12.jpg
+
+Nội dung ảnh:
+- Ảnh photobooth nền hoa hồng (anh hôn tóc em, hai đứa chụp chung)
+- Em cười tươi cầm bó hồng bên hồ
+- Em đứng trước Hồ Gươm
+- Em cầm hoa dưới hàng cây
+- Em ngồi bên bụi cây xanh
+- Em nháy mắt ôm bó hoa
+- Em đứng trước toà nhà hoa giấy
+- Ảnh Zalo em tạo dáng bên bình hoa
+- Em ngồi ở ghế đá bờ hồ
+- Ảnh photobooth hai đứa (bổ sung sau)
+
+Xong rồi xoá file txt này đi cũng được.
