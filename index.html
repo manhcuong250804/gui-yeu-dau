@@ -1,18 +1,3 @@
-<!--
-  ============================================================
-  GỬI YÊU DẤU CỦA ANH — trang kỷ niệm
-  ------------------------------------------------------------
-  CẤU TRÚC (để cùng cấp với file này):
-    index.html
-    ngay dau/            di choi cung nhau/
-    anh em cuoi/         em/
-    (các thư mục mới thêm sau: xem phần ALBUMS trong <script>)
-
-  THÊM THƯ MỚI  -> thêm một object vào mảng LETTERS
-  THÊM ALBUM MỚI-> thêm một object vào mảng ALBUMS
-                   (album chưa có ảnh sẽ tự động ẩn)
-  ============================================================
--->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -77,7 +62,6 @@
   .photo:hover{ transform:rotate(0) scale(1.04); z-index:2; }
   .photo img{ width:100%; height:210px; object-fit:cover; display:block; border-radius:12px; background:var(--pink-soft); }
 
-  /* ===== DANH SÁCH THƯ ===== */
   .letters{ padding:70px 22px 90px; }
   .letters h2{ font-size:clamp(30px,7vw,52px); margin-bottom:6px; }
   .letters .sub{ font-size:15px; color:var(--pink); margin-bottom:30px; }
@@ -87,18 +71,14 @@
     overflow:hidden; text-align:left; transition:box-shadow .3s;
   }
   .letter-card:hover{ box-shadow:0 16px 40px rgba(178,58,95,.24); }
-  .letter-head{
-    display:flex; align-items:center; gap:14px; padding:20px 22px; cursor:pointer;
-  }
+  .letter-head{ display:flex; align-items:center; gap:14px; padding:20px 22px; cursor:pointer; }
   .letter-ico{ font-size:26px; flex-shrink:0; }
   .letter-meta{ flex:1; }
   .letter-date{ font-size:13px; color:var(--pink); font-weight:600; letter-spacing:.4px; }
   .letter-title{ font-family:'Dancing Script',cursive; font-size:27px; color:var(--wine); line-height:1.25; }
   .chev{ color:var(--pink); font-size:15px; transition:transform .35s; flex-shrink:0; }
   .letter-card.open .chev{ transform:rotate(180deg); }
-  .letter-body{
-    max-height:0; overflow:hidden; transition:max-height .6s ease;
-  }
+  .letter-body{ max-height:0; overflow:hidden; transition:max-height .6s ease; }
   .letter-card.open .letter-body{ max-height:3000px; }
   .letter-inner{ padding:4px 24px 26px; }
   .letter-inner .text{ font-size:clamp(15.5px,4.2vw,17.5px); line-height:2.05; white-space:pre-line; }
@@ -107,7 +87,6 @@
     display:inline-block; margin-top:14px; padding:7px 16px; border:2px dashed var(--pink);
     border-radius:30px; color:var(--wine); font-size:13.5px; font-weight:600; transform:rotate(-2deg);
   }
-
   .footer{ padding:40px 22px 70px; }
   .footer .script{ font-size:clamp(26px,6vw,38px); }
 </style>
@@ -116,7 +95,6 @@
 
 <div class="hearts" id="hearts"></div>
 
-<!-- ================= MỞ ĐẦU ================= -->
 <section class="hero">
   <h1 class="script">Gửi yêu dấu của anh 💗</h1>
   <p>Nơi anh cất giữ những lá thư và những khoảnh khắc của mình.</p>
@@ -124,7 +102,6 @@
   <div class="scroll-hint">︾ vuốt xuống ︾</div>
 </section>
 
-<!-- ================= LỜI DẪN ================= -->
 <section class="story">
   <div class="reveal">
     <p>Từ ngày quen em, anh có thêm một người để nhớ, để lo, để mong gặp mỗi ngày.</p>
@@ -133,10 +110,8 @@
   </div>
 </section>
 
-<!-- ================= CÁC ALBUM ẢNH ================= -->
 <div id="albums"></div>
 
-<!-- ================= DANH SÁCH THƯ ================= -->
 <section class="letters">
   <h2 class="script reveal">Những lá thư anh gửi em</h2>
   <div class="sub reveal">bấm vào từng lá thư để mở ra đọc nha 💌</div>
@@ -148,9 +123,7 @@
 </section>
 
 <script>
-/* =========================================================
-   1) DANH SÁCH THƯ  — thêm thư mới thì thêm object vào đây
-   ========================================================= */
+/* ================= DANH SÁCH THƯ ================= */
 const LETTERS = [
   {
     date: '15.09.2026',
@@ -200,10 +173,7 @@ Yêu em nhiều.`,
   }
 ];
 
-/* =========================================================
-   2) ALBUM ẢNH — album nào chưa có ảnh sẽ tự ẩn
-   Thêm album mới: điền folder + danh sách tên file ảnh
-   ========================================================= */
+/* ================= ALBUM ẢNH ================= */
 const ALBUMS = [
   {
     title: 'Ngày đầu mình gặp nhau',
@@ -258,50 +228,77 @@ const ALBUMS = [
       '1786767758151_2212413600050327737_7302419949942483034_f054e7bbe119125e49910ed4e094ef17.jpg'
     ]
   },
-
-  /* ====== ALBUM MỚI ======
-     Chỉ cần đổi tên ảnh thành 1.jpg, 2.jpg, 3.jpg... bỏ vào thư mục.
-     "count" = số ảnh tối đa sẽ dò; ảnh nào không có thì tự ẩn.       */
   {
     title: 'Ngày anh và em yêu nhau',
     sub: 'ngày em nói đồng ý 💗',
     folder: 'ngay yeu nhau',
-    count: 30
+    files: [
+      '1789399169854_2212413600050327737_7302419949942483034_60edadc033c17e5d4a66bf07f2bc0f7e.jpg',
+      '1789399169890_2212413600050327737_7302419949942483034_766adffd5b61c9a35618ae977f596891.jpg',
+      '1789399169906_2212413600050327737_7302419949942483034_ebf46066431a3250d3f12b82a6333eca.jpg',
+      '1789399169925_2212413600050327737_7302419949942483034_959564980828f6245146dc660a1aa57e.jpg',
+      '1789399169938_2212413600050327737_7302419949942483034_252c884b6d0e66868c46d05d63fadd62.jpg',
+      '1789399169952_2212413600050327737_7302419949942483034_3540b7f9c64aade567caac1faaf37c6a.jpg',
+      '1789399169966_2212413600050327737_7302419949942483034_60796c54d805df2ecaa617f14df6f366.jpg',
+      '1789399169980_2212413600050327737_7302419949942483034_16ce400ba7dd4e2567248ea8963cd5cc.jpg',
+      '1789399169996_2212413600050327737_7302419949942483034_07f02c94990571519dd654f3c026ef14.jpg',
+      '1789399170011_2212413600050327737_7302419949942483034_5cc46a3288d51a8de6dae6bc0ce45d2d.jpg',
+      '1789399170026_2212413600050327737_7302419949942483034_32aa44446f8841047ffe33c5427da7cc.jpg',
+      '1789399170038_2212413600050327737_7302419949942483034_0d42e76968bdb906813b8ea480954eed.jpg'
+    ]
   },
   {
     title: 'Kỳ nghỉ 2/9',
     sub: 'Sapa mùa lúa chín — đi đâu cũng đẹp khi có em 🏔️',
     folder: 'nghi 2-9',
-    count: 30
+    files: [
+      '1789399356284_2212413600050327737_7302419949942483034_f3dfed36a8dd16153391120df1ceef7c.jpg',
+      '1789399356303_2212413600050327737_7302419949942483034_36311bc70f0cb0bf07613febe168fa3a.jpg',
+      '1789399356320_2212413600050327737_7302419949942483034_5bd27105f78911dc8b4c079df2ea1fc3.jpg',
+      '1789399356334_2212413600050327737_7302419949942483034_fcca66a394374f1147ffe66e132d6f36.jpg',
+      '1789399356352_2212413600050327737_7302419949942483034_e238cbd537a0ffcbb8f8e9b43fe8a92d.jpg'
+    ]
   },
   {
     title: 'Biểu cảm anh thích',
     sub: 'phụng phịu cũng cute, nhăn nhó cũng cute 🥰',
     folder: 'bieu cam',
-    count: 30
+    files: [
+      '1789399742771_2212413600050327737_7302419949942483034_002b6811f62d2de7eee4a7fad7e98359.jpg',
+      '1789399742816_2212413600050327737_7302419949942483034_d6f95d85f6440209ccf1a784e31ca3e4.jpg',
+      '1789399742834_2212413600050327737_7302419949942483034_69ca50f8cbba864955c7674821a4ef3a.jpg',
+      '1789399742851_2212413600050327737_7302419949942483034_52605c639e117dfb1ad685fe89bc9a5d.jpg',
+      '1789399742865_2212413600050327737_7302419949942483034_a000edeb826c0fe6c4d02d01634618a6.jpg',
+      '1789399742881_2212413600050327737_7302419949942483034_dbf025ab9849a90b36e9dfd4e1d20c79.jpg',
+      '1789399742898_2212413600050327737_7302419949942483034_2f23edce234ee311b8aab9deea3ad323.jpg'
+    ]
   },
   {
     title: 'Mùa thu Hà Nội',
     sub: 'thu này có em, thu nào cũng đẹp 🍂',
     folder: 'mua thu ha noi',
-    count: 30
+    files: [
+      '1789403334971_2212413600050327737_7302419949942483034_c084a8bb90cab8d345a8a6d97dc81eea.jpg',
+      '1789403335016_2212413600050327737_7302419949942483034_f2eebfd7b6c97f57bb237ed76e5bb7a8.jpg',
+      '1789403335039_2212413600050327737_7302419949942483034_d271291663d11e423b1bf161982314cc.jpg',
+      '1789403335056_2212413600050327737_7302419949942483034_5167823e447f14c7bff39555841cee6a.jpg',
+      '1789403335073_2212413600050327737_7302419949942483034_f21592c7b028aa7acb119634fccf96f7.jpg',
+      '1789403335089_2212413600050327737_7302419949942483034_43cf1cbbbefb26506200b5226b9a9674.jpg',
+      '1789403335104_2212413600050327737_7302419949942483034_cfcfb82968c4f5ea735c883165bec00c.jpg',
+      '1789403335119_2212413600050327737_7302419949942483034_1a6a375fa708bccdc25f64e5ef025b56.jpg',
+      '1789403335138_2212413600050327737_7302419949942483034_4c7802b5752c8a422ad4a2a7cd48a52c.jpg',
+      '1789403335153_2212413600050327737_7302419949942483034_f41f32b5528a28263e31216c54f5b36c.jpg',
+      '1789403335168_2212413600050327737_7302419949942483034_25a1448a53afb8c66f053bb099caf6a6.jpg',
+      '802697529_959265463129384_4588064348350909382_n.jpg'
+    ]
   }
 ];
-
-/* Album dùng "count" -> tự sinh danh sách 1.jpg ... N.jpg */
-ALBUMS.forEach(a=>{
-  if(!a.files && a.count){
-    a.files = Array.from({length:a.count},(_,i)=>(i+1)+'.jpg');
-    a.auto = true;
-  }
-});
 
 /* ================= DỰNG ALBUM ================= */
 const wrap = document.getElementById('albums');
 ALBUMS.filter(a => a.files && a.files.length).forEach(al=>{
   const sec = document.createElement('section');
   sec.className = 'album';
-  sec.style.display = al.auto ? 'none' : '';   // album tự dò: ẩn tới khi có ảnh
   const h = document.createElement('h2');
   h.className = 'script reveal'; h.textContent = al.title;
   const s = document.createElement('div');
@@ -313,23 +310,8 @@ ALBUMS.filter(a => a.files && a.files.length).forEach(al=>{
     const img = document.createElement('img');
     img.alt = al.title;
     img.loading = 'lazy';
-    const base = encodeURIComponent(al.folder) + '/';
-    if(al.auto){
-      // album tự dò: thử lần lượt .jpg -> .jpeg -> .png -> .JPG
-      const exts = ['.jpg','.jpeg','.png','.JPG'];
-      let k = 0;
-      const num = f.replace(/\.jpg$/,'');
-      img.src = base + num + exts[k];
-      img.onerror = function(){
-        k++;
-        if(k < exts.length){ this.src = base + num + exts[k]; }
-        else { d.style.display='none'; }
-      };
-    } else {
-      img.src = base + f;
-      img.onerror = function(){ d.style.display='none'; };
-    }
-    img.onload = function(){ sec.style.display=''; };   // có ít nhất 1 ảnh -> hiện album
+    img.src = encodeURIComponent(al.folder) + '/' + f;
+    img.onerror = function(){ d.style.display='none'; };
     d.appendChild(img); g.appendChild(d);
   });
   sec.appendChild(h); sec.appendChild(s); sec.appendChild(g);
@@ -359,17 +341,13 @@ LETTERS.forEach((L, i)=>{
     </div>`;
   card.querySelector('.letter-head').addEventListener('click', ()=> card.classList.toggle('open'));
   list.appendChild(card);
-  if(i === 0) card.classList.add('open');   // thư mới nhất mở sẵn
+  if(i === 0) card.classList.add('open');
 });
 
-/* ================= ĐẾM NGÀY YÊU NHAU ================= */
-const START = new Date(2026, 7, 15);   // 15/08/2026 — ngày mình chính thức
+/* ================= ĐẾM NGÀY ================= */
+const START = new Date(2026, 7, 15);
 const days = Math.floor((new Date() - START) / 86400000);
-const months = Math.floor(days / 30);
-document.getElementById('counter').textContent =
-  months >= 1
-    ? `💕 Mình đã bên nhau ${days} ngày rồi đó`
-    : `💕 Mình đã bên nhau ${days} ngày`;
+document.getElementById('counter').textContent = `💕 Mình đã bên nhau ${days} ngày rồi đó`;
 
 /* ================= HIỆU ỨNG ================= */
 const H = document.getElementById('hearts');
