@@ -177,7 +177,6 @@
   .lb-count{ position:absolute; bottom:22px; left:0; right:0; text-align:center; color:#ffd6e2; font-size:14px; font-weight:600; }
 
   /* ---------- nhạc nền ---------- */
-  #ytwrap{ position:fixed; right:0; bottom:0; width:2px; height:2px; opacity:.01; pointer-events:none; overflow:hidden; z-index:-1; }
   .music-btn{
     position:fixed; right:16px; bottom:16px; z-index:70; width:48px; height:48px; border-radius:50%;
     border:0; cursor:pointer; background:#fff; font-size:22px; box-shadow:0 8px 22px rgba(178,58,95,.28);
@@ -237,7 +236,7 @@
   <div class="lb-count" id="lbCount"></div>
 </div>
 
-<div id="ytwrap"><div id="yt"></div></div>
+<audio id="bgm" src="music/my-love.mp3" loop preload="metadata"></audio>
 <button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">🎵</button>
 <div class="music-tip" id="musicTip">chạm vào trang để nghe nhạc 🎶</div>
 
@@ -866,39 +865,27 @@ if(days === 100){
   setTimeout(()=> cf.remove(), 9000);
 }
 
-/* ================= NHẠC NỀN: Westlife - My Love (video chính thức trên YouTube) =================
+/* ================= NHẠC NỀN: My Love (music/my-love.mp3) =================
    Trình duyệt không cho tự phát tiếng khi chưa chạm, nên nhạc bắt đầu ở lần chạm đầu tiên. */
-const YT_ID = 'ulOb9gIGGd0', MUSIC_VOLUME = 20;
+const MUSIC_VOLUME = 0.2;   // 0 → 1 (iPhone bỏ qua, theo âm lượng máy)
+const bgm = document.getElementById('bgm');
 const musicBtn = document.getElementById('musicBtn'), musicTip = document.getElementById('musicTip');
-let yt = null, ytReady = false, musicOn = true, playing = false;
-(function(){ const t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(t); })();
-window.onYouTubeIframeAPIReady = function(){
-  yt = new YT.Player('yt', {
-    width: '200', height: '113', videoId: YT_ID,
-    playerVars: { autoplay: 1, controls: 0, loop: 1, playlist: YT_ID, playsinline: 1, rel: 0 },
-    events: {
-      onReady: e => { ytReady = true; e.target.setVolume(MUSIC_VOLUME); if(musicOn) e.target.playVideo(); },
-      onStateChange: e => {
-        playing = (e.data === YT.PlayerState.PLAYING);
-        musicBtn.classList.toggle('playing', playing);
-        if(playing) hideTip();
-      }
-    }
-  });
-};
-function hideTip(){ musicTip.style.opacity = 0; setTimeout(()=> musicTip.remove(), 600); }
-function startMusic(){ if(ytReady && musicOn && !playing){ yt.setVolume(MUSIC_VOLUME); yt.unMute(); yt.playVideo(); } }
+let musicOn = true;
+bgm.volume = MUSIC_VOLUME;
+function hideTip(){ const t = document.getElementById('musicTip'); if(!t) return; t.style.opacity = 0; setTimeout(()=> t.remove(), 600); }
+bgm.addEventListener('play',  ()=>{ musicBtn.classList.add('playing'); musicBtn.textContent = '🎵'; hideTip(); });
+bgm.addEventListener('pause', ()=>{ musicBtn.classList.remove('playing'); musicBtn.textContent = '🔇'; });
+function startMusic(){ if(musicOn && bgm.paused) bgm.play().catch(()=>{}); }
+startMusic();   // máy nào cho tự phát thì phát luôn
 ['pointerdown','touchend','keydown'].forEach(ev => document.addEventListener(ev, e=>{
   if(e.target.closest && e.target.closest('#musicBtn')) return;
   startMusic();
 }, {passive:true}));
 musicBtn.addEventListener('click', ()=>{
-  if(!ytReady) return;
-  musicOn = !playing;
-  if(musicOn){ yt.unMute(); yt.playVideo(); musicBtn.textContent = '🎵'; }
-  else { yt.pauseVideo(); musicBtn.textContent = '🔇'; }
+  musicOn = bgm.paused;
+  if(musicOn) bgm.play().catch(()=>{}); else bgm.pause();
 });
-setTimeout(()=>{ if(document.getElementById('musicTip')) hideTip(); }, 10000);
+setTimeout(hideTip, 10000);
 
 /* ================= DỰNG CHẶNG ĐƯỜNG ================= */
 const tl = document.getElementById('timeline');
