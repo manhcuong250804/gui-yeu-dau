@@ -176,6 +176,21 @@
   .lb-next{ right:12px; top:50%; transform:translateY(-50%); }
   .lb-count{ position:absolute; bottom:22px; left:0; right:0; text-align:center; color:#ffd6e2; font-size:14px; font-weight:600; }
 
+  /* ---------- màn mở thư ---------- */
+  .intro{
+    position:fixed; inset:0; z-index:200; cursor:pointer;
+    background:radial-gradient(circle at 50% 40%,#fff5f8 0%,#ffd9e6 70%,#ffc7da 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px;
+    transition:opacity .9s ease, visibility .9s;
+  }
+  .intro.gone{ opacity:0; visibility:hidden; }
+  .env{ font-size:clamp(96px,30vw,150px); line-height:1; animation:bob 2.2s ease-in-out infinite; filter:drop-shadow(0 14px 22px rgba(178,58,95,.25)); }
+  .intro.opening .env{ animation:none; transform:scale(1.25) rotate(-6deg); opacity:0; transition:all .7s ease; }
+  @keyframes bob{ 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-12px) rotate(3deg)} }
+  .intro h2{ font-family:'Dancing Script',cursive; color:var(--wine); font-size:clamp(34px,9vw,56px); margin-top:18px; }
+  .intro p{ margin-top:10px; color:var(--pink); font-weight:600; font-size:16px; animation:blink 1.6s ease-in-out infinite; }
+  @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.45} }
+
   /* ---------- nhạc nền ---------- */
   .music-btn{
     position:fixed; right:16px; bottom:16px; z-index:70; width:48px; height:48px; border-radius:50%;
@@ -183,11 +198,6 @@
   }
   .music-btn.playing{ animation:spin 4s linear infinite; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
-  .music-tip{
-    position:fixed; right:16px; bottom:74px; z-index:70; background:#fff; color:var(--wine);
-    font-size:13px; font-weight:600; padding:6px 12px; border-radius:16px;
-    box-shadow:0 6px 16px rgba(178,58,95,.2); transition:opacity .5s;
-  }
   .folder{
     background:linear-gradient(180deg,#fff 0%,#fff7fa 100%); border-radius:24px;
     box-shadow:0 12px 32px rgba(178,58,95,.16); overflow:hidden; text-align:left;
@@ -238,7 +248,11 @@
 
 <audio id="bgm" src="music/my-love.mp3" loop preload="metadata"></audio>
 <button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">🎵</button>
-<div class="music-tip" id="musicTip">chạm vào trang để nghe nhạc 🎶</div>
+<div class="intro" id="intro" role="button" aria-label="Mở thư">
+  <div class="env">💌</div>
+  <h2>Gửi em Huyền</h2>
+  <p>chạm để mở thư nha ✨</p>
+</div>
 
 <section class="story">
   <div class="reveal">
@@ -861,19 +875,17 @@ if(days === 100){
     b.style.animationDelay = (Math.random()*2.5) + 's';
     cf.appendChild(b);
   }
-  document.body.appendChild(cf);
-  setTimeout(()=> cf.remove(), 9000);
+  window.launchConfetti = ()=>{ document.body.appendChild(cf); setTimeout(()=> cf.remove(), 9000); };
 }
 
 /* ================= NHẠC NỀN: My Love (music/my-love.mp3) =================
    Trình duyệt không cho tự phát tiếng khi chưa chạm, nên nhạc bắt đầu ở lần chạm đầu tiên. */
 const MUSIC_VOLUME = 0.2;   // 0 → 1 (iPhone bỏ qua, theo âm lượng máy)
 const bgm = document.getElementById('bgm');
-const musicBtn = document.getElementById('musicBtn'), musicTip = document.getElementById('musicTip');
+const musicBtn = document.getElementById('musicBtn');
 let musicOn = true;
 bgm.volume = MUSIC_VOLUME;
-function hideTip(){ const t = document.getElementById('musicTip'); if(!t) return; t.style.opacity = 0; setTimeout(()=> t.remove(), 600); }
-bgm.addEventListener('play',  ()=>{ musicBtn.classList.add('playing'); musicBtn.textContent = '🎵'; hideTip(); });
+bgm.addEventListener('play',  ()=>{ musicBtn.classList.add('playing'); musicBtn.textContent = '🎵'; });
 bgm.addEventListener('pause', ()=>{ musicBtn.classList.remove('playing'); musicBtn.textContent = '🔇'; });
 function startMusic(){ if(musicOn && bgm.paused) bgm.play().catch(()=>{}); }
 startMusic();   // máy nào cho tự phát thì phát luôn
@@ -885,7 +897,20 @@ musicBtn.addEventListener('click', ()=>{
   musicOn = bgm.paused;
   if(musicOn) bgm.play().catch(()=>{}); else bgm.pause();
 });
-setTimeout(hideTip, 10000);
+
+/* Màn "chạm để mở thư": cú chạm này cho phép phát nhạc ngay */
+const intro = document.getElementById('intro');
+document.body.style.overflow = 'hidden';
+intro.addEventListener('click', ()=>{
+  bgm.play().catch(()=>{});
+  intro.classList.add('opening');
+  setTimeout(()=>{
+    intro.classList.add('gone');
+    document.body.style.overflow = '';
+    if(window.launchConfetti) window.launchConfetti();
+    setTimeout(()=> intro.remove(), 1000);
+  }, 550);
+});
 
 /* ================= DỰNG CHẶNG ĐƯỜNG ================= */
 const tl = document.getElementById('timeline');
