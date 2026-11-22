@@ -53,6 +53,7 @@
     font-size:13px; font-weight:600; letter-spacing:.6px; color:#fff; background:var(--pink);
     padding:4px 14px; border-radius:20px; margin-bottom:10px;
   }
+  .album-note{ display:inline-block; margin-top:8px; font-size:14px; font-style:italic; color:var(--wine); background:#fff; padding:5px 14px; border-radius:16px; box-shadow:0 4px 12px rgba(178,58,95,.1); }
   .album-divider{ padding:50px 22px 10px; }
   .album-divider .script{ font-size:clamp(24px,5.5vw,34px); }
   .grid{
@@ -140,12 +141,6 @@
   .hero.is100 h1{ font-size:clamp(34px,8vw,64px); }
   .hero.is100 p{ margin-top:8px; }
   .hero.is100 .counter{ margin-top:16px; }
-  .read-btn{
-    margin-top:22px; border:0; cursor:pointer; font:600 16px 'Quicksand',sans-serif; color:#fff;
-    background:linear-gradient(135deg,#ff7aa2,#e0567f); padding:14px 28px; border-radius:40px;
-    box-shadow:0 12px 28px rgba(224,86,127,.35); transition:transform .2s;
-  }
-  .read-btn:active{ transform:scale(.96); }
   .confetti{ position:fixed; inset:0; pointer-events:none; z-index:60; overflow:hidden; }
   .confetti span{ position:absolute; top:-40px; font-size:22px; animation:drop linear forwards; }
   @keyframes drop{ to{ transform:translateY(110vh) rotate(540deg); opacity:.2; } }
@@ -234,7 +229,6 @@
   <p>Nơi anh cất giữ những lá thư và những khoảnh khắc của mình.</p>
   <div class="counter" id="counter">💕 Mình đã bên nhau ... ngày</div>
   <div class="milestone" id="milestone" hidden></div>
-  <button class="read-btn" id="readBtn">💌 Đọc thư 100 ngày</button>
   <div class="scroll-hint">︾ vuốt xuống xem kỷ niệm ︾</div>
 </section>
 
@@ -290,7 +284,7 @@ const EVENTS = [
   { date:'02.09.2026', icon:'🏔️', album:'nghi 2-9', title:'Kỳ nghỉ 2/9 ở Sapa', desc:'Chuyến đi xa đầu tiên của hai đứa, mùa lúa chín.' },
   { date:'15.09.2026', icon:'🍂', album:'mua thu ha noi', title:'Tròn một tháng — mùa thu Hà Nội', desc:'Kỷ niệm một tháng bên Hồ Gươm, hoa và những buổi chiều có em.' },
   { date:'20.10.2026', icon:'🌹', album:'20-10', title:'Ngày Phụ nữ Việt Nam', desc:'Bó hồng và bữa tối dành cho người con gái của anh.' },
-  { date:'12–14.11.2026', icon:'🚲', album:'ninh binh', title:'Ninh Bình', desc:'Cố đô Hoa Lư, đạp xe cùng nhau giữa núi đá.' },
+  { date:'12–14.11.2026', icon:'🚲', album:'ninh binh', title:'Ninh Bình', desc:'Chuyến đi mừng 100 ngày: cố đô Hoa Lư, Tràng An, Tam Cốc, phố cổ…' },
   { date:'19.11.2026', icon:'💋', letter:['em','Gửi tới chàng trai em yêu'], title:'Lá thư tay của em', desc:'Em nói chữ em xấu, nhưng vì anh thích nên em vẫn viết.' },
   { date:'23.11.2026', icon:'💯', letter:['anh','Thư 100 ngày yêu nhau'], title:'100 ngày yêu nhau', desc:'Một trăm ngày đầu tiên, và còn rất nhiều ngày nữa.' }
 ];
@@ -581,6 +575,7 @@ const ALBUMS = [
     group: 'time', date: '12–14.11.2026',
     title: "Ninh Bình",
     sub: "cố đô Hoa Lư — đạp xe cùng em giữa núi đá 🚲",
+    note: "Tràng An, Tam Cốc, phố cổ… anh còn cập nhật thêm ảnh nha 📸",
     folder: 'ninh binh',
     files: [
       '1795343710563_2212413600050327737_7302419949942483034_45c42fbd7cbce37a36c4772b17192ff1.jpg',
@@ -761,6 +756,11 @@ ALBUMS.filter(a => a.files && a.files.length).forEach(al=>{
   h.className = 'script reveal'; h.textContent = al.title;
   const s = document.createElement('div');
   s.className = 'sub reveal'; s.textContent = al.sub;
+  if(al.note){
+    const n = document.createElement('span');
+    n.className = 'album-note'; n.textContent = al.note;
+    s.appendChild(document.createElement('br')); s.appendChild(n);
+  }
   const g = document.createElement('div');
   g.className = 'grid reveal';
   const srcs = al.files.map(f => encodeURIComponent(al.folder) + '/' + f);
@@ -853,7 +853,6 @@ function openLetter(folderKey, title){
   document.querySelectorAll('.letters .reveal').forEach(el => el.classList.add('show'));
   setTimeout(()=> (card || folder).scrollIntoView({behavior:'smooth', block:'start'}), 350);
 }
-document.getElementById('readBtn').addEventListener('click', ()=> openLetter('anh', 'Thư 100 ngày yêu nhau'));
 
 /* ================= ĐẾM NGÀY ================= */
 const START = new Date(2026, 7, 15);
