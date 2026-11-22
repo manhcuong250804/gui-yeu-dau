@@ -700,7 +700,7 @@ const ALBUMS = [
 ];
 
 /* ================= XEM ẢNH TOÀN MÀN HÌNH ================= */
-const SHOW_FIRST = 6;   // mỗi album hiện sẵn bao nhiêu ảnh
+const SHOW_FIRST = 4;   // mỗi album hiện sẵn bao nhiêu ảnh
 const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCount = document.getElementById('lbCount');
 let lbList = [], lbIdx = 0;
 function lbShow(){ lbImg.src = lbList[lbIdx]; lbCount.textContent = `${lbIdx+1} / ${lbList.length}`; }
@@ -751,7 +751,7 @@ ALBUMS.filter(a => a.files && a.files.length).forEach(al=>{
   const g = document.createElement('div');
   g.className = 'grid reveal';
   const srcs = al.files.map(f => encodeURIComponent(al.folder) + '/' + f);
-  const collapse = srcs.length - SHOW_FIRST >= 3;
+  const collapse = srcs.length > SHOW_FIRST;
   srcs.forEach((src, i)=>{
     const d = document.createElement('div');
     d.className = 'photo' + (collapse && i >= SHOW_FIRST ? ' extra' : '');
