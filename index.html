@@ -110,9 +110,85 @@
     background:#fff; box-shadow:0 6px 16px rgba(178,58,95,.18);
     display:flex; align-items:center; justify-content:center; font-size:19px;
   }
-  .tl-date{ font-size:13px; color:var(--pink); font-weight:600; letter-spacing:.4px; padding-top:2px; }
-  .tl-title{ font-family:'Dancing Script',cursive; font-size:26px; color:var(--wine); line-height:1.25; }
-  .tl-desc{ font-size:15.5px; line-height:1.8; margin-top:2px; }
+  .tl-date{ font-size:14px; color:var(--pink); font-weight:600; letter-spacing:.4px; padding-top:2px; }
+  .tl-title{ font-family:'Dancing Script',cursive; font-size:28px; color:var(--wine); line-height:1.25; }
+  .tl-desc{ font-size:16.5px; line-height:1.8; margin-top:2px; }
+  .tl-item.link{ cursor:pointer; }
+  .tl-item.link:active .tl-dot{ transform:scale(.92); }
+  .tl-go{ display:inline-block; margin-top:4px; font-size:13.5px; font-weight:600; color:var(--pink); }
+
+  /* ---------- màn hình đầu ---------- */
+  .hero-photo{
+    width:min(62vw,260px); background:#fff; padding:10px 10px 34px; border-radius:6px;
+    box-shadow:0 18px 40px rgba(178,58,95,.22); transform:rotate(-3deg); margin-bottom:26px;
+    position:relative; animation:sway 6s ease-in-out infinite;
+  }
+  .hero-photo img{ width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center 30%; display:block; border-radius:3px; }
+  .hero-photo::after{
+    content:'Anh & Em 💗'; position:absolute; left:0; right:0; bottom:7px; text-align:center;
+    font-family:'Dancing Script',cursive; font-size:20px; color:var(--wine);
+  }
+  @keyframes sway{ 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(-1deg)} }
+  .big100{
+    font-family:'Dancing Script',cursive; font-weight:700; line-height:1; color:var(--wine);
+    font-size:clamp(84px,24vw,150px); text-shadow:0 8px 24px rgba(178,58,95,.25); margin-bottom:4px;
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  .big100 small{ display:block; font-size:.28em; margin-top:-4px; }
+  .hero.is100{ padding-top:40px; padding-bottom:40px; }
+  .hero.is100 .hero-photo{ width:min(46vw,190px); margin-bottom:18px; }
+  .hero.is100 h1{ font-size:clamp(34px,8vw,64px); }
+  .hero.is100 p{ margin-top:8px; }
+  .hero.is100 .counter{ margin-top:16px; }
+  .read-btn{
+    margin-top:22px; border:0; cursor:pointer; font:600 16px 'Quicksand',sans-serif; color:#fff;
+    background:linear-gradient(135deg,#ff7aa2,#e0567f); padding:14px 28px; border-radius:40px;
+    box-shadow:0 12px 28px rgba(224,86,127,.35); transition:transform .2s;
+  }
+  .read-btn:active{ transform:scale(.96); }
+  .confetti{ position:fixed; inset:0; pointer-events:none; z-index:60; overflow:hidden; }
+  .confetti span{ position:absolute; top:-40px; font-size:22px; animation:drop linear forwards; }
+  @keyframes drop{ to{ transform:translateY(110vh) rotate(540deg); opacity:.2; } }
+
+  /* ---------- album: xem thêm + bấm phóng to ---------- */
+  .photo{ cursor:zoom-in; }
+  .photo.extra{ display:none; }
+  .album.expanded .photo.extra{ display:block; }
+  .more-btn{
+    margin-top:22px; border:2px solid var(--pink); background:#fff; color:var(--wine); cursor:pointer;
+    font:600 15px 'Quicksand',sans-serif; padding:11px 24px; border-radius:30px;
+    box-shadow:0 8px 20px rgba(178,58,95,.12);
+  }
+
+  /* ---------- xem ảnh toàn màn hình ---------- */
+  .lb{
+    position:fixed; inset:0; z-index:100; background:rgba(40,16,26,.94);
+    display:flex; align-items:center; justify-content:center; touch-action:pan-y;
+  }
+  .lb[hidden]{ display:none; }
+  .lb img{ max-width:94vw; max-height:84vh; object-fit:contain; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,.5); user-select:none; }
+  .lb button{
+    position:absolute; z-index:2; border:0; background:rgba(0,0,0,.5); color:#fff; cursor:pointer;
+    width:46px; height:46px; border-radius:50%; font-size:26px; line-height:46px; text-align:center;
+  }
+  .lb-close{ top:16px; right:16px; font-size:22px !important; }
+  .lb-prev{ left:12px; top:50%; transform:translateY(-50%); }
+  .lb-next{ right:12px; top:50%; transform:translateY(-50%); }
+  .lb-count{ position:absolute; bottom:22px; left:0; right:0; text-align:center; color:#ffd6e2; font-size:14px; font-weight:600; }
+
+  /* ---------- nhạc nền ---------- */
+  #ytwrap{ position:fixed; right:0; bottom:0; width:2px; height:2px; opacity:.01; pointer-events:none; overflow:hidden; z-index:-1; }
+  .music-btn{
+    position:fixed; right:16px; bottom:16px; z-index:70; width:48px; height:48px; border-radius:50%;
+    border:0; cursor:pointer; background:#fff; font-size:22px; box-shadow:0 8px 22px rgba(178,58,95,.28);
+  }
+  .music-btn.playing{ animation:spin 4s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .music-tip{
+    position:fixed; right:16px; bottom:74px; z-index:70; background:#fff; color:var(--wine);
+    font-size:13px; font-weight:600; padding:6px 12px; border-radius:16px;
+    box-shadow:0 6px 16px rgba(178,58,95,.2); transition:opacity .5s;
+  }
   .folder{
     background:linear-gradient(180deg,#fff 0%,#fff7fa 100%); border-radius:24px;
     box-shadow:0 12px 32px rgba(178,58,95,.16); overflow:hidden; text-align:left;
@@ -143,12 +219,27 @@
 <div class="hearts" id="hearts"></div>
 
 <section class="hero">
+  <div class="big100" id="big100" hidden>100<small>ngày yêu nhau</small></div>
+  <div class="hero-photo"><img src="ngay%20yeu%20nhau/1789399169952_2212413600050327737_7302419949942483034_3540b7f9c64aade567caac1faaf37c6a.jpg" alt="Anh và em"></div>
   <h1 class="script">Gửi yêu dấu của anh 💗</h1>
   <p>Nơi anh cất giữ những lá thư và những khoảnh khắc của mình.</p>
   <div class="counter" id="counter">💕 Mình đã bên nhau ... ngày</div>
   <div class="milestone" id="milestone" hidden></div>
-  <div class="scroll-hint">︾ vuốt xuống ︾</div>
+  <button class="read-btn" id="readBtn">💌 Đọc thư 100 ngày</button>
+  <div class="scroll-hint">︾ vuốt xuống xem kỷ niệm ︾</div>
 </section>
+
+<div class="lb" id="lb" hidden>
+  <img id="lbImg" alt="">
+  <button class="lb-prev" id="lbPrev" aria-label="Ảnh trước">‹</button>
+  <button class="lb-next" id="lbNext" aria-label="Ảnh sau">›</button>
+  <button class="lb-close" id="lbClose" aria-label="Đóng">✕</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<div id="ytwrap"><div id="yt"></div></div>
+<button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">🎵</button>
+<div class="music-tip" id="musicTip">chạm vào trang để nghe nhạc 🎶</div>
 
 <section class="story">
   <div class="reveal">
@@ -179,16 +270,16 @@
 <script>
 /* ================= CHẶNG ĐƯỜNG (thêm sự kiện mới vào cuối) ================= */
 const EVENTS = [
-  { date:'15.07.2026', icon:'🐷', title:'Anh xin được tìm hiểu em', desc:'Lá thư đầu tiên: "Em cho anh được bước cùng em sang giai đoạn tiếp theo nhé?"' },
-  { date:'01.08.2026', icon:'🎉', title:'Sinh nhật em', desc:'Anh tự tay chuẩn bị một buổi nhỏ để mừng ngày em có mặt trên đời.' },
-  { date:'15.08.2026', icon:'💌', title:'Ngày mình yêu nhau', desc:'Anh gửi lá thư tỏ tình, và em đã nói đồng ý.' },
+  { date:'15.07.2026', icon:'🐷', letter:['anh','Ngày anh xin được tìm hiểu em'], title:'Anh xin được tìm hiểu em', desc:'Lá thư đầu tiên: "Em cho anh được bước cùng em sang giai đoạn tiếp theo nhé?"' },
+  { date:'01.08.2026', icon:'🎉', letter:['anh','Thiệp sinh nhật em'], title:'Sinh nhật em', desc:'Anh tự tay chuẩn bị một buổi nhỏ để mừng ngày em có mặt trên đời.' },
+  { date:'15.08.2026', icon:'💌', album:'ngay yeu nhau', title:'Ngày mình yêu nhau', desc:'Anh gửi lá thư tỏ tình, và em đã nói đồng ý.' },
   { date:'25.08.2026', icon:'🎂', title:'Sinh nhật anh', desc:'Sinh nhật đầu tiên anh có em ở bên.' },
-  { date:'02.09.2026', icon:'🏔️', title:'Kỳ nghỉ 2/9 ở Sapa', desc:'Chuyến đi xa đầu tiên của hai đứa, mùa lúa chín.' },
-  { date:'15.09.2026', icon:'🍂', title:'Tròn một tháng — mùa thu Hà Nội', desc:'Kỷ niệm một tháng bên Hồ Gươm, hoa và những buổi chiều có em.' },
-  { date:'20.10.2026', icon:'🌹', title:'Ngày Phụ nữ Việt Nam', desc:'Bó hồng và bữa tối dành cho người con gái của anh.' },
-  { date:'12–14.11.2026', icon:'🚲', title:'Ninh Bình', desc:'Cố đô Hoa Lư, đạp xe cùng nhau giữa núi đá.' },
-  { date:'19.11.2026', icon:'💋', title:'Lá thư tay của em', desc:'Em nói chữ em xấu, nhưng vì anh thích nên em vẫn viết.' },
-  { date:'23.11.2026', icon:'💯', title:'100 ngày yêu nhau', desc:'Một trăm ngày đầu tiên, và còn rất nhiều ngày nữa.' }
+  { date:'02.09.2026', icon:'🏔️', album:'nghi 2-9', title:'Kỳ nghỉ 2/9 ở Sapa', desc:'Chuyến đi xa đầu tiên của hai đứa, mùa lúa chín.' },
+  { date:'15.09.2026', icon:'🍂', album:'mua thu ha noi', title:'Tròn một tháng — mùa thu Hà Nội', desc:'Kỷ niệm một tháng bên Hồ Gươm, hoa và những buổi chiều có em.' },
+  { date:'20.10.2026', icon:'🌹', album:'20-10', title:'Ngày Phụ nữ Việt Nam', desc:'Bó hồng và bữa tối dành cho người con gái của anh.' },
+  { date:'12–14.11.2026', icon:'🚲', album:'ninh binh', title:'Ninh Bình', desc:'Cố đô Hoa Lư, đạp xe cùng nhau giữa núi đá.' },
+  { date:'19.11.2026', icon:'💋', letter:['em','Gửi tới chàng trai em yêu'], title:'Lá thư tay của em', desc:'Em nói chữ em xấu, nhưng vì anh thích nên em vẫn viết.' },
+  { date:'23.11.2026', icon:'💯', letter:['anh','Thư 100 ngày yêu nhau'], title:'100 ngày yêu nhau', desc:'Một trăm ngày đầu tiên, và còn rất nhiều ngày nữa.' }
 ];
 
 /* ================= THƯ TAY (2 thư mục, thư mới nhất để trên cùng) =================
@@ -608,6 +699,32 @@ const ALBUMS = [
   }
 ];
 
+/* ================= XEM ẢNH TOÀN MÀN HÌNH ================= */
+const SHOW_FIRST = 6;   // mỗi album hiện sẵn bao nhiêu ảnh
+const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCount = document.getElementById('lbCount');
+let lbList = [], lbIdx = 0;
+function lbShow(){ lbImg.src = lbList[lbIdx]; lbCount.textContent = `${lbIdx+1} / ${lbList.length}`; }
+function openLB(list, i){ lbList = list; lbIdx = i; lbShow(); lb.hidden = false; document.body.style.overflow = 'hidden'; }
+function closeLB(){ lb.hidden = true; document.body.style.overflow = ''; }
+function stepLB(n){ lbIdx = (lbIdx + n + lbList.length) % lbList.length; lbShow(); }
+document.getElementById('lbPrev').onclick = e=>{ e.stopPropagation(); stepLB(-1); };
+document.getElementById('lbNext').onclick = e=>{ e.stopPropagation(); stepLB(1); };
+document.getElementById('lbClose').onclick = e=>{ e.stopPropagation(); closeLB(); };
+lb.addEventListener('click', e=>{ if(e.target === lb) closeLB(); });
+document.addEventListener('keydown', e=>{
+  if(lb.hidden) return;
+  if(e.key === 'Escape') closeLB();
+  if(e.key === 'ArrowLeft') stepLB(-1);
+  if(e.key === 'ArrowRight') stepLB(1);
+});
+let tx = null;
+lb.addEventListener('touchstart', e=>{ tx = e.touches[0].clientX; }, {passive:true});
+lb.addEventListener('touchend', e=>{
+  if(tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if(Math.abs(dx) > 45) stepLB(dx < 0 ? 1 : -1);
+}, {passive:true});
+
 /* ================= DỰNG ALBUM ================= */
 const wrap = document.getElementById('albums');
 let shownMore = false;
@@ -621,6 +738,7 @@ ALBUMS.filter(a => a.files && a.files.length).forEach(al=>{
   }
   const sec = document.createElement('section');
   sec.className = 'album';
+  sec.id = 'al-' + al.folder.replace(/\s+/g,'-');
   if(al.date){
     const dt = document.createElement('div');
     dt.className = 'album-date reveal'; dt.textContent = al.date;
@@ -632,16 +750,33 @@ ALBUMS.filter(a => a.files && a.files.length).forEach(al=>{
   s.className = 'sub reveal'; s.textContent = al.sub;
   const g = document.createElement('div');
   g.className = 'grid reveal';
-  al.files.forEach(f=>{
-    const d = document.createElement('div'); d.className='photo';
+  const srcs = al.files.map(f => encodeURIComponent(al.folder) + '/' + f);
+  const collapse = srcs.length - SHOW_FIRST >= 3;
+  srcs.forEach((src, i)=>{
+    const d = document.createElement('div');
+    d.className = 'photo' + (collapse && i >= SHOW_FIRST ? ' extra' : '');
     const img = document.createElement('img');
     img.alt = al.title;
     img.loading = 'lazy';
-    img.src = encodeURIComponent(al.folder) + '/' + f;
+    img.src = src;
     img.onerror = function(){ d.style.display='none'; };
+    d.addEventListener('click', ()=> openLB(srcs, i));
     d.appendChild(img); g.appendChild(d);
   });
   sec.appendChild(h); sec.appendChild(s); sec.appendChild(g);
+  const extra = srcs.length - SHOW_FIRST;
+  if(collapse){
+    const btn = document.createElement('button');
+    btn.className = 'more-btn';
+    const label = ()=> sec.classList.contains('expanded') ? 'Thu gọn ▲' : `Xem thêm ${extra} ảnh 📸`;
+    btn.textContent = label();
+    btn.addEventListener('click', ()=>{
+      sec.classList.toggle('expanded');
+      btn.textContent = label();
+      if(!sec.classList.contains('expanded')) sec.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+    sec.appendChild(btn);
+  }
   wrap.appendChild(sec);
 });
 
@@ -651,6 +786,7 @@ const encPath = p => p.split('/').map(encodeURIComponent).join('/');
 LETTER_FOLDERS.forEach(F=>{
   const folder = document.createElement('div');
   folder.className = 'folder';
+  folder.dataset.key = F.key;
   folder.innerHTML = `
     <div class="folder-head">
       <div class="folder-ico"><span class="closed">📁</span><span class="opened">📂</span></div>
@@ -665,6 +801,7 @@ LETTER_FOLDERS.forEach(F=>{
   F.letters.forEach(L=>{
     const card = document.createElement('div');
     card.className = 'letter-card';
+    card.dataset.title = L.title;
     const pics = (L.photos||[]).map((src,i)=>
       `<a href="${encPath(src)}" target="_blank" rel="noopener" class="letter-photo">
          <img src="${encPath(src)}" loading="lazy" alt="${L.title} — trang ${i+1}">
@@ -693,25 +830,92 @@ LETTER_FOLDERS.forEach(F=>{
   list.appendChild(folder);
 });
 
+/* Mở thẳng một lá thư (dùng cho nút "Đọc thư 100 ngày" và mục Chặng đường) */
+function openLetter(folderKey, title){
+  const folder = document.querySelector(`.folder[data-key="${folderKey}"]`);
+  if(!folder) return;
+  folder.classList.add('open');
+  const card = [...folder.querySelectorAll('.letter-card')].find(c => c.dataset.title === title);
+  if(card) card.classList.add('open');
+  document.querySelectorAll('.letters .reveal').forEach(el => el.classList.add('show'));
+  setTimeout(()=> (card || folder).scrollIntoView({behavior:'smooth', block:'start'}), 350);
+}
+document.getElementById('readBtn').addEventListener('click', ()=> openLetter('anh', 'Thư 100 ngày yêu nhau'));
+
 /* ================= ĐẾM NGÀY ================= */
 const START = new Date(2026, 7, 15);
 const days = Math.floor((new Date() - START) / 86400000);
 document.getElementById('counter').textContent = `💕 Mình đã bên nhau ${days} ngày rồi đó`;
 if(days === 100){
   const m = document.getElementById('milestone');
-  m.textContent = '💯 Chúc mừng 100 ngày yêu nhau 💯';
-  m.hidden = false;
+  document.getElementById('big100').hidden = false;
+  document.querySelector('.hero').classList.add('is100');
+  // pháo giấy rơi một lần khi mở trang
+  const cf = document.createElement('div'); cf.className = 'confetti';
+  const bits = ['🎉','💖','✨','🌸','💕','🎊','💗'];
+  for(let i=0;i<70;i++){
+    const b = document.createElement('span');
+    b.textContent = bits[i % bits.length];
+    b.style.left = Math.random()*100 + '%';
+    b.style.fontSize = (16 + Math.random()*20) + 'px';
+    b.style.animationDuration = (3 + Math.random()*3) + 's';
+    b.style.animationDelay = (Math.random()*2.5) + 's';
+    cf.appendChild(b);
+  }
+  document.body.appendChild(cf);
+  setTimeout(()=> cf.remove(), 9000);
 }
+
+/* ================= NHẠC NỀN: Westlife - My Love (video chính thức trên YouTube) =================
+   Trình duyệt không cho tự phát tiếng khi chưa chạm, nên nhạc bắt đầu ở lần chạm đầu tiên. */
+const YT_ID = 'ulOb9gIGGd0', MUSIC_VOLUME = 20;
+const musicBtn = document.getElementById('musicBtn'), musicTip = document.getElementById('musicTip');
+let yt = null, ytReady = false, musicOn = true, playing = false;
+(function(){ const t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(t); })();
+window.onYouTubeIframeAPIReady = function(){
+  yt = new YT.Player('yt', {
+    width: '200', height: '113', videoId: YT_ID,
+    playerVars: { autoplay: 1, controls: 0, loop: 1, playlist: YT_ID, playsinline: 1, rel: 0 },
+    events: {
+      onReady: e => { ytReady = true; e.target.setVolume(MUSIC_VOLUME); if(musicOn) e.target.playVideo(); },
+      onStateChange: e => {
+        playing = (e.data === YT.PlayerState.PLAYING);
+        musicBtn.classList.toggle('playing', playing);
+        if(playing) hideTip();
+      }
+    }
+  });
+};
+function hideTip(){ musicTip.style.opacity = 0; setTimeout(()=> musicTip.remove(), 600); }
+function startMusic(){ if(ytReady && musicOn && !playing){ yt.setVolume(MUSIC_VOLUME); yt.unMute(); yt.playVideo(); } }
+['pointerdown','touchend','keydown'].forEach(ev => document.addEventListener(ev, e=>{
+  if(e.target.closest && e.target.closest('#musicBtn')) return;
+  startMusic();
+}, {passive:true}));
+musicBtn.addEventListener('click', ()=>{
+  if(!ytReady) return;
+  musicOn = !playing;
+  if(musicOn){ yt.unMute(); yt.playVideo(); musicBtn.textContent = '🎵'; }
+  else { yt.pauseVideo(); musicBtn.textContent = '🔇'; }
+});
+setTimeout(()=>{ if(document.getElementById('musicTip')) hideTip(); }, 10000);
 
 /* ================= DỰNG CHẶNG ĐƯỜNG ================= */
 const tl = document.getElementById('timeline');
 EVENTS.forEach(E=>{
   const it = document.createElement('div');
-  it.className = 'tl-item';
+  it.className = 'tl-item' + (E.album || E.letter ? ' link' : '');
+  const go = E.album ? 'xem ảnh →' : (E.letter ? 'đọc thư →' : '');
   it.innerHTML = `<div class="tl-dot">${E.icon}</div>
     <div class="tl-date">${E.date}</div>
     <div class="tl-title">${E.title}</div>
-    ${E.desc ? `<div class="tl-desc">${E.desc}</div>` : ''}`;
+    ${E.desc ? `<div class="tl-desc">${E.desc}</div>` : ''}
+    ${go ? `<span class="tl-go">${go}</span>` : ''}`;
+  if(E.album) it.addEventListener('click', ()=>{
+    const el = document.getElementById('al-' + E.album.replace(/\s+/g,'-'));
+    if(el){ el.querySelectorAll('.reveal').forEach(r=>r.classList.add('show')); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+  if(E.letter) it.addEventListener('click', ()=> openLetter(E.letter[0], E.letter[1]));
   tl.appendChild(it);
 });
 
